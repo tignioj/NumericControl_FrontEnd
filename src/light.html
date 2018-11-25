@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Light Control</title>
+    <link href="css/light.css" rel="stylesheet"/>
+</head>
+<body>
+    <div id="outer">
+        <div id="mid">
+            <div id="inner">
+                <div>
+                    <span>MainSwitch</span>
+                    <button class="led_control led_mainControl">ON</button>
+                    <button class="led_control led_mainControl">OFF</button>
+                </div>
+                <div>
+                    <span>LED1</span>
+                    <button class="led_control">OFF</button>
+                </div>
+                <div>
+                    <span>LED2</span>
+                    <button class="led_control">OFF</button>
+                </div>
+                <div>
+                    <span>LED3</span>
+                    <button class="led_control">OFF</button>
+                </div>
+                <div>
+                    <span>LED4</span>
+                    <button class="led_control">OFF</button>
+                </div>
+                <div>
+                    <span>语音</span>
+                    <label for="file" class="led_control upload_window">
+                        <a >选择文件</a>
+                    </label>
+                    <input name="up_file" id="file"  onchange="loadFile(this.files[0])" type="file">
+                    <button onclick="uploadAudioNow()" class="led_control upload_button">上传</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/tools.js"></script>
+    <script src="js/light.js"></script>
+
+</body>
+</html>
