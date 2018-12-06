@@ -28,10 +28,10 @@ body {
     -moz-box-shadow: 3px 3px 3px 1px  rgba(0,0,0,0.3);
     box-shadow: 3px 3px 3px 1px  rgba(0,0,0,0.3);
 
-
     -webkit-border-radius: 1em;
     -moz-border-radius: 1em;
     border-radius: 1em;
+    background: #10a1c9;
 
 }
 
@@ -41,11 +41,7 @@ body {
     flex-direction: column;
     justify-content: center;
     padding: 70px;
-    background: #10a1c9;
-
-    -webkit-border-radius: 1em;
-    -moz-border-radius: 1em;
-    border-radius: 1em;
+    background-color: rgba(0,0,0,0);
 }
 
 #inner > div {
@@ -54,75 +50,66 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    border-top: 1px solid greenyellow;
-
-    -webkit-box-shadow: 0px 7px 3px -4px rgba(0, 0, 0, 0.3);
-    -moz-box-shadow: 0px 7px 3px -4px rgba(0, 0, 0, 0.3);
-    box-shadow: 0px 7px 3px -4px rgba(0, 0, 0, 0.3);
-
+    border-top: 1px solid #fff;
 }
 
+#inner > div:last-child {
+    border-bottom: 1px solid #fff;
+}
+
+
+/*flex子元素居中, (对文字进行居中)*/
+#upload_window,
 #inner > div> span {
-    font-weight: bold;
+    width: 50%;
     color: #fff;
-    width:50%;
-    text-align:center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 
-.led_control{
-    margin:0;
-    padding:0;
+/*居中*/
+.led_control {
+    margin: 0;
+    padding: 0;
     width: 50%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0);
-    color: #fff;
-    position:relative;
-    border: 0;
+    position: relative;
     transition-duration: 0.2s;
-    font-weight: bold;
-
 }
 
+/*灯和上传按钮的样式*/
+#choose_file_button,
+#upload_button,
+.led_control {
+    border: 0;
+    background-color: rgba(0, 0, 0, 0);
+    color: #fff;
+}
+
+
+/*宽度布局*/
 .led_mainControl {
     width: 25%;
 }
 
+#choose_file_button:hover,
+#upload_button:hover,
 .led_control:hover {
     background-color: aliceblue;
     color: #00cbff;
 }
 
-
-.voice_upload {
-    border: 0;
-    padding: 0;
-    margin: 0;
-    opacity: 0;
-}
-
-
-.upload_button, .upload_window {
+/*按比例调整，比如50：75：50 = 1：1.5：1*/
+#choose_file_button,
+#upload_button{
     width: 50%;
 }
-
-.upload_window {
-    width: 100%;
-    height: 100%;
-    display: block;
-    position: relative;
+#upload_window {
+    width: 70%;
 }
 
 #file {
-    width: 0;
-    height: 0;
-    border: 0;
-    margin: 0;
-    padding: 0;
     display: none;
-    position: relative;
-    margin: 0;
-    text-align: center;
-    opacity: 0;
 }
-

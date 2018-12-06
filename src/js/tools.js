@@ -54,8 +54,6 @@ function adjustMobile() {
     var cH = document.documentElement.clientHeight || document.body.clientHeight;
     var cW = document.documentElement.clientWidth || document.body.clientWidth;
 
-    console.log(cW+ ":" + cH);
-
 
     if (cW < cH) {
         mid.style.width = cW*0.9 + "px";
@@ -66,7 +64,6 @@ function adjustMobile() {
 
         var mydiv = document.getElementById("inner").getElementsByTagName("div");
         for (var i = 0; i < mydiv.length; i++) {
-            console.log(mydiv[i].innerHTML);
             mydiv[i].style.height = cH * 0.19 + "px";
             mydiv[i].style.fontSize= "2.4em";
         }

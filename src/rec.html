@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>rec</title>
+</head>
+<body>
+    <button id="start" onmouseout="console.log('release');stopREC()" onmousedown="console.log('press');startREC()">Record now</button>
+    <button id="stop" onclick="stopREC()">stop</button>
+    <script src="js/recorder.js"></script>
+    <script>
+        var set = {
+            type: "mp3"
+        }
+        var rec = Recorder(set);
+        function startREC() {
+            rec.open(function () {
+                rec.start(); //开始录音
+            }, function (msg) {
+                console.log("无法录音:" + msg);
+            });
+        }
+
+        function stopREC() {
+            rec.stop(function (blob) {
+                uploadRecordedAudio(blob);
+                rec.close();
+            }, function (msg) {
+                console.log("录音失败:" + msg);
+            });
+        }
+
+        function uploadRecordedAudio(blob) {
+            var xhr = new XMLHttpRequest();
+            var form = new FormData();
+            form.append("up_file", blob, "record.mp3");
+            xhr.open("post", "back/saveAudio.php");
+            xhr.send(form);
+        }
+
+    </script>
+</body>
+</html>

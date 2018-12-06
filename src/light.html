@@ -13,30 +13,30 @@
                     <span>MainSwitch</span>
                     <button class="led_control led_mainControl">ON</button>
                     <button class="led_control led_mainControl">OFF</button>
+                </div> 
+                <div>
+                    <span><a>LED1</a></span>
+                    <button class="led_control"></button>
                 </div>
                 <div>
-                    <span>LED1</span>
-                    <button class="led_control">OFF</button>
+                    <span> <a>LED2</a></span>
+                    <button class="led_control"></button>
                 </div>
                 <div>
-                    <span>LED2</span>
-                    <button class="led_control">OFF</button>
+                    <span><a>LED3</a></span>
+                    <button class="led_control"></button>
                 </div>
                 <div>
-                    <span>LED3</span>
-                    <button class="led_control">OFF</button>
+                    <span><a>LED4</a></span>
+                    <button class="led_control"></button>
                 </div>
                 <div>
-                    <span>LED4</span>
-                    <button class="led_control">OFF</button>
-                </div>
-                <div>
-                    <span>语音</span>
-                    <label for="file" class="led_control upload_window">
-                        <a >选择文件</a>
+                    <span  id="choose_file_button">选择文件</span>
+                    <label id="upload_window">
+                        <a> 加载中.. </a>
                     </label>
-                    <input name="up_file" id="file"  onchange="loadFile(this.files[0])" type="file">
-                    <button onclick="uploadAudioNow()" class="led_control upload_button">上传</button>
+                    <input name="up_file" id="file" onchange="loadFileName(this.files[0])" type="file">
+                    <button id="upload_button">点击上传</button>
                 </div>
             </div>
         </div>
@@ -44,6 +44,91 @@
 
     <script src="js/tools.js"></script>
     <script src="js/light.js"></script>
+    <script src="js/recorder.js"></script>
+    <script>
+        //适配手机
+        uploadWindow.onselect = function (ev) { return false; };
+        uploadWindow.onselectstart = function (ev) { return false; };
+        uploadWindow.oncopy = function (ev) { return false; };
+
+
+        //==================录音监听
+        function recordListen() {
+
+            uploadWindow.addEventListener('mousedown', pcPress);
+            uploadWindow.addEventListener('mouseup', pcLeave);
+
+
+            uploadWindow.addEventListener('touchstart', mobilePress);
+            uploadWindow.addEventListener('touchend', mobileLeave);
+            uploadWindow.innerHTML = "点击录音";
+
+            function readyToREC() {
+                mr.startREC();
+                uploadWindow.style.backgroundColor = "aliceblue";
+                uploadWindow.style.color = "#00cbff";
+                uploadWindow.innerHTML = "正在录音";
+            }
+
+            function readyToStopRec() {
+                mr.stopREC();
+                uploadWindow.style.backgroundColor = "rgba(0,0,0,0)";
+                uploadWindow.style.color = "aliceblue";
+                uploadWindow.innerHTML = "录音结束";
+            }
+            function pcPress() {
+                console.log("mouse clicking..");
+                readyToREC();
+            }
+            function pcLeave() {
+                console.log("mouse leaving..");
+                readyToStopRec();
+            }
+
+
+            function mobilePress() {
+                console.log("touching..");
+                readyToREC();
+            }
+
+
+            function mobileLeave() {
+                console.log("leaving..");
+                readyToStopRec();
+            }
+
+        }
+        recordListen();
+            var mr = new myRecordAudio();
+            function myRecordAudio() {
+            var set = {
+                type: "wav"
+            }
+            var rec = Recorder(set);
+            this.startREC = function() {
+                rec.open(function () {
+                    rec.start(); //开始录音
+                }, function (msg) {
+                    console.log("无法录音:" + msg);
+                });
+            }
+
+            this.stopREC = function() {
+                rec.stop(function (blob) {
+                    uploadAudioNow(blob);
+                    rec.close();
+                }, function (msg) {
+                    console.log("录音失败: " + msg);
+                    setTimeout(function () {
+                        uploadWindow.innerHTML = "" + msg;
+                    }, 10)
+                });
+            }
+        }
+
+
+    </script>
+
 
 </body>
 </html>
